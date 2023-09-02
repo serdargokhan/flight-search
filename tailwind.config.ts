@@ -1,20 +1,19 @@
-import type { Config } from 'tailwindcss'
+import type { Config } from "tailwindcss";
 
-const config: Config = {
-  content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
-  ],
-  theme: {
-    extend: {
-      backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-conic':
-          'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
-      },
+const config = {
+    content: ["./src/**/*.{ts,tsx,mdx}"],
+    theme: {
+        container: {
+            center: true,
+            padding: "1rem",
+            screens: { xl: "1280px" }
+        },
+        extend: {}
     },
-  },
-  plugins: [],
-}
-export default config
+    future: {
+        hoverOnlyWhenSupported: true
+    },
+    plugins: []
+} satisfies Config;
+
+export default config;
