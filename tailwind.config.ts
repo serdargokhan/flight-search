@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { fontFamily } from "tailwindcss/defaultTheme";
 
 const config = {
     content: ["./src/**/*.{ts,tsx,mdx}"],
@@ -8,7 +9,9 @@ const config = {
             padding: "1rem",
             screens: { xl: "1280px" }
         },
-        extend: {}
+            fontFamily: {
+                sans: ["var(--inter-font)", ...fontFamily.sans]
+            },
     },
     future: {
         hoverOnlyWhenSupported: true
