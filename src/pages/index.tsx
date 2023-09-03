@@ -2,16 +2,21 @@ import { useCallback, useState } from "react";
 import { useRouter } from "next/router";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
+import { useQuery } from "@tanstack/react-query";
 import { zodResolver } from "@hookform/resolvers/zod";
 import Head from "next/head";
 import { Button, Input, Label } from "@/components/ui";
 import AirportSelectBox from "@/components/AirportSelectBox";
+import FlightList from "@/components/FlightList";
 import { cn } from "@/utils";
+import { Flight } from "./api/flights";
 
 export default function Home() {
     const [isOneWay, setIsOneWay] = useState(false);
     const [departureModal, setDepartureModal] = useState(false);
     const [arrivalModal, setArrivalModal] = useState(false);
+
+    const router = useRouter();
 
     const flightSearchSchema = z.object({
         departureAirport: z
@@ -63,11 +68,32 @@ export default function Home() {
     );
 
     const todayDate = new Date().toISOString().split("T")[0];
+
+    const {
+        isFetching,
+        error,
+        data: flights,
+        refetch
+    } = useQuery<Flight>({
+        queryKey: ["flights"],
+        queryFn: () =>
+            fetch(
+                `/api/flights/?arrivalAirport=${router.query.arrivalAirport}&departureAirport=${router.query.departureAirport}&departureDate=${router.query.departureDate}&returnDate=${router.query.returnDate}`
+            ).then(res => res.json()),
+        enabled:
+            !!router.query.arrivalAirport &&
+            !!router.query.departureAirport &&
+            !!router.query.departureDate
+    });
+
     return (
+        <>
             <Head>
                 <title>Flight Search</title>
                 <meta name="description" content="Start your journey here" />
             </Head>
+
+            <section className="container py-8">
                 <div className="w-full rounded-xl border border-primary-600 bg-white shadow-card">
                     <h1 className="border-b p-4 font-bold">Flight Search</h1>
                     <form
@@ -215,5 +241,17 @@ export default function Home() {
                         </Button>
                     </form>
                 </div>
+
+                <p className="mb-4 mt-8 border-b border-primary-600 pb-4 font-bold">
+                    Flight Details
+                </p>
+
+                <FlightList
+                    error={error}
+                    flights={flights}
+                    isLoading={isFetching}
+                />
+            </section>
+        </>
     );
 }
