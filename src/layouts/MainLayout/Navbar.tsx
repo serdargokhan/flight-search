@@ -6,7 +6,7 @@ export default function Navbar() {
             <nav className="container">
                 <NextLink href="/">
                     <svg
-                        className="fill-primary-600 hover:fill-primary-500 h-11 w-11 transition"
+                        className="h-11 w-11 fill-primary-600 transition hover:fill-primary-500"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 48 48"
                     >
