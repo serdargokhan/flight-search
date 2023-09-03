@@ -10,7 +10,7 @@ function Input(
     return (
         <input
             className={cn(
-                "border-input focus-visible:ring-ring ring-primary-600 flex h-10 w-full rounded-md border px-3 py-2 text-sm placeholder:text-gray-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50",
+                "flex h-10 w-full rounded-md border-2 px-3 py-2 text-sm placeholder:text-gray-500 focus-visible:border-2 focus-visible:border-primary-600 focus-visible:outline-none disabled:cursor-not-allowed disabled:opacity-50",
                 className
             )}
             type={type}

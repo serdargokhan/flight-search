@@ -12,7 +12,7 @@ function Label(
     return (
         <label
             className={cn(
-                "select-none text-sm leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
+                "select-none text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70",
                 className
             )}
             ref={ref}
